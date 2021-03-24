@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+   
+    <body>
+        <div id="demo"></div>
+        <div>
+            <button onclick="submit()">submit</button>
+        </div>
+            
+          <footer>
+            <div><button><a href="index.html" style="text-decoration: none">Back</a></button></div>
+        </footer> 
+        
+        <script>
+            window.onload=getUserContents();
+            
+
+            function getUserContents(){
+                const xhttp = new XMLHttpRequest();
+                xhttp.open("GET","https://yuchengxie.com/COMP351/project/individual-project/WRITEDB/API/v1/get-quiz-content/",true);
+                xhttp.send();
+                xhttp.onreadystatechange = function(){
+                    if(this.readyState == 4 && this.status == 200){
+                        
+                        document.getElementById('demo').innerHTML=(this.responseText) ;
+                        
+                        
+                    }
+                };
+               
+            };
+
+           
+        </script>
+    </body>
+</html>

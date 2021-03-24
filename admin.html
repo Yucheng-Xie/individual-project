@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="demo">
+            <h1>Enter question, choices, and answerkey</h1>
+            <p>question ID: <input type="text" id="questionid"></p>
+            <p>question: <input type="text" id="question"></p>
+            <p>choices:</p>
+            <input type="text" id="answerA"><br>
+            <input type="text" id="answerB"><br>
+            <input type="text" id="answerC"><br>
+            <input type="text" id="answerD"><br>
+            <p>answerKey: <input type="text" id="answerkey"></p>
+
+        <button onclick="postData()">Save</button>
+        
+        <button onclick="deleteData()">Delete</button>
+        
+        </div>
+        
+        <footer>
+            <div><button><a href="index.html" style="text-decoration: none">Back</a></button></div>
+        </footer>
+        
+        <script>
+            var src = "https://yuchengxie.com/COMP351/project/individual-project/WRITEDB";
+
+
+           
+
+            function postData(){
+                let questionid = document.getElementById('questionid').value;    
+                let question = document.getElementById('question').value;
+                let answerA = document.getElementById('answerA').value;
+                let answerB = document.getElementById('answerB').value;
+                let answerC = document.getElementById('answerC').value;
+                let answerD = document.getElementById('answerD').value;
+                let answerkey = document.getElementById('answerkey').value;
+
+                let data = "?questionid="+questionid+"&question=" + question + "&answerA=" + answerA +"&answerB=" + answerB + "&answerC=" + answerC + "&answerD=" + answerD +"&answerkey=" + answerkey;
+                const xhttp = new XMLHttpRequest();
+                xhttp.open("POST",src + "/API/v1/postData/" + data,true);     
+                xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded")           
+                xhttp.send();
+                xhttp.onreadystatechange = function(){                    
+                    if(this.readyState == 4 && this.status == 200){                        
+                        document.getElementById("demo").innerHTML = this.responseText;
+                    }                    
+                };
+            };
+            
+            function deleteData(){
+                let questionid = document.getElementById('questionid').value;  
+                let data = "?questionid=" + questionid;
+                const xhttp = new XMLHttpRequest();
+                xhttp.open("POST",src + "/API/v1/deleteData/" + data,true);     
+                xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded")           
+                xhttp.send();
+                xhttp.onreadystatechange = function(){                    
+                    if(this.readyState == 4 && this.status == 200){                        
+                        document.getElementById("demo").innerHTML = this.responseText;
+                    }                    
+                }; 
+            };
+
+        </script>
+    </body>
+</html>
